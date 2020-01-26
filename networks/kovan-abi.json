@@ -3713,16 +3713,6 @@
                     "internalType": "address payable",
                     "name": "admin_",
                     "type": "address"
-                },
-                {
-                    "internalType": "address",
-                    "name": "implementation_",
-                    "type": "address"
-                },
-                {
-                    "internalType": "bytes",
-                    "name": "becomeImplementationData",
-                    "type": "bytes"
                 }
             ],
             "payable": false,
@@ -3955,26 +3945,6 @@
             "inputs": [
                 {
                     "indexed": false,
-                    "internalType": "address",
-                    "name": "oldImplementation",
-                    "type": "address"
-                },
-                {
-                    "indexed": false,
-                    "internalType": "address",
-                    "name": "newImplementation",
-                    "type": "address"
-                }
-            ],
-            "name": "NewImplementation",
-            "type": "event",
-            "signature": "0xd604de94d45953f9138079ec1b82d533cb2160c906d1076d1f7ed54befbca97a"
-        },
-        {
-            "anonymous": false,
-            "inputs": [
-                {
-                    "indexed": false,
                     "internalType": "contract InterestRateModel",
                     "name": "oldInterestRateModel",
                     "type": "address"
@@ -4173,11 +4143,6 @@
             "signature": "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
         },
         {
-            "payable": true,
-            "stateMutability": "payable",
-            "type": "fallback"
-        },
-        {
             "constant": false,
             "inputs": [],
             "name": "_acceptAdmin",
@@ -4258,32 +4223,6 @@
             "stateMutability": "nonpayable",
             "type": "function",
             "signature": "0x4576b5db"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "implementation_",
-                    "type": "address"
-                },
-                {
-                    "internalType": "bool",
-                    "name": "allowResign",
-                    "type": "bool"
-                },
-                {
-                    "internalType": "bytes",
-                    "name": "becomeImplementationData",
-                    "type": "bytes"
-                }
-            ],
-            "name": "_setImplementation",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function",
-            "signature": "0x555bcc40"
         },
         {
             "constant": false,
@@ -4629,50 +4568,6 @@
         },
         {
             "constant": false,
-            "inputs": [
-                {
-                    "internalType": "bytes",
-                    "name": "data",
-                    "type": "bytes"
-                }
-            ],
-            "name": "delegateToImplementation",
-            "outputs": [
-                {
-                    "internalType": "bytes",
-                    "name": "",
-                    "type": "bytes"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function",
-            "signature": "0x0933c1ed"
-        },
-        {
-            "constant": true,
-            "inputs": [
-                {
-                    "internalType": "bytes",
-                    "name": "data",
-                    "type": "bytes"
-                }
-            ],
-            "name": "delegateToViewImplementation",
-            "outputs": [
-                {
-                    "internalType": "bytes",
-                    "name": "",
-                    "type": "bytes"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function",
-            "signature": "0x4487152f"
-        },
-        {
-            "constant": false,
             "inputs": [],
             "name": "exchangeRateCurrent",
             "outputs": [
@@ -4757,20 +4652,91 @@
             "signature": "0x3b1d21a2"
         },
         {
-            "constant": true,
-            "inputs": [],
-            "name": "implementation",
-            "outputs": [
+            "constant": false,
+            "inputs": [
                 {
                     "internalType": "address",
-                    "name": "",
+                    "name": "underlying_",
                     "type": "address"
+                },
+                {
+                    "internalType": "contract ComptrollerInterface",
+                    "name": "comptroller_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract InterestRateModel",
+                    "name": "interestRateModel_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "initialExchangeRateMantissa_",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "string",
+                    "name": "name_",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "symbol_",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "decimals_",
+                    "type": "uint8"
                 }
             ],
+            "name": "initialize",
+            "outputs": [],
             "payable": false,
-            "stateMutability": "view",
+            "stateMutability": "nonpayable",
             "type": "function",
-            "signature": "0x5c60da1b"
+            "signature": "0x1a31d465"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "internalType": "contract ComptrollerInterface",
+                    "name": "comptroller_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "contract InterestRateModel",
+                    "name": "interestRateModel_",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "initialExchangeRateMantissa_",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "string",
+                    "name": "name_",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "symbol_",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint8",
+                    "name": "decimals_",
+                    "type": "uint8"
+                }
+            ],
+            "name": "initialize",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function",
+            "signature": "0x99d8c1b4"
         },
         {
             "constant": true,

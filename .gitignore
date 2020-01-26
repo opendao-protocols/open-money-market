@@ -27,3 +27,6 @@ test-results.xml
 .tsbuilt
 yarn-error.log
 scenario/build/webpack.js
+
+# installed by scenario script
+/contracts/test/

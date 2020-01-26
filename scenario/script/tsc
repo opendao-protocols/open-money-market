@@ -6,18 +6,18 @@ dir=`dirname $0`
 scenario_dir="$(cd $dir/.. && pwd)"
 parent_dir="$(cd $dir/../.. && pwd)"
 
-if [ ! -d "$scenario_dir/node_modules" ]; then
-	echo "Getting scenario packages..."
-	cd "$scenario_dir" && yarn
-fi
+#if [ ! -d "$scenario_dir/node_modules" ]; then
+#	echo "Getting scenario packages..."
+#	cd "$scenario_dir" && yarn
+#fi
 
-trap cleanup EXIT
+#trap cleanup EXIT
 
-cleanup() {
-  mv "$parent_dir/node_modules_tmp" "$parent_dir/node_modules"
-}
+#cleanup() {
+#  mv "$parent_dir/node_modules_tmp" "$parent_dir/node_modules"
+#}
 
-mv "$parent_dir/node_modules" "$parent_dir/node_modules_tmp"
+#mv "$parent_dir/node_modules" "$parent_dir/node_modules_tmp"
 
 echo "Building Scenario Runner..."
 cd "$scenario_dir" && node "$scenario_dir/node_modules/.bin/tsc" ${TSC_ARGS-"--skipLibCheck"}

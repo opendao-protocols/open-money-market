@@ -5,7 +5,7 @@ RUN yarn global add truffle@5.0.30
 RUN yarn global add ganache-cli@6.5.1
 RUN yarn global add typescript
 
-RUN wget https://github.com/ethereum/solidity/releases/download/v0.5.8/solc-static-linux -O /usr/local/bin/solc && \
+RUN wget https://github.com/ethereum/solidity/releases/download/v0.5.12/solc-static-linux -O /usr/local/bin/solc && \
 	chmod +x /usr/local/bin/solc
 
 RUN mkdir -p /deploy/compound-protocol/scenario

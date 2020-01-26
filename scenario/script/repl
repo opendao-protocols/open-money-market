@@ -1,6 +1,6 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
-set -eo
+set -eox
 
 dir=`dirname $0`
 tsc_root="$(cd "$dir/.." && pwd)"
@@ -57,13 +57,14 @@ while getopts ":hdn:e:s:vt" arg; do
 done
 
 if [ ! $network = "mainnet" ]; then
-	function cleanup {
-		mv "$contracts_root/test" "$test_root/contracts"
-	}
+	#function cleanup {
+	#	mv "$contracts_root/test" "$test_root/contracts"
+	#}
 
-	trap cleanup EXIT
+	#trap cleanup EXIT
 
-	mv "$test_root/contracts" "$contracts_root/test"
+    rm -rf $contracts_root/test
+	cp -r "$test_root/contracts" "$contracts_root/test"
 
 	# Compile with test contracts
 	[[ -z $no_compile ]] && solc --combined-json bin,abi --optimize contracts/*.sol contracts/**/*.sol --allow-paths ./contracts,./contracts/test > networks/${network}-contracts.json
@@ -74,6 +75,7 @@ fi
 
 [[ ! -d ./.tsbuilt || -z $no_tsc ]] && . "$dir/tsc"
 
-[[ -z $no_compile ]] && node --stack_size=10000 "$proj_root/node_modules/truffle/build/cli.bundled.js" compile
+no_compile=true
+[[ -z $no_compile ]] && node "$proj_root/node_modules/truffle/build/cli.bundled.js" compile
 
 proj_root="$proj_root" env_vars="$env_vars" dry_run="$dry_run" script="$script" network="$network" verbose="$verbose" npx truffle exec --network "$network" "$tsc_root/.tsbuilt/Repl.js"

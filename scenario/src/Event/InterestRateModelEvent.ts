@@ -50,7 +50,8 @@ export function interestRateModelCommands() {
         * "Deploy ...params" - Generates a new interest rate model
           * E.g. "InterestRateModel Deploy Fixed MyInterestRateModel 0.5"
           * E.g. "InterestRateModel Deploy Whitepaper MyInterestRateModel 0.05 0.45"
-          * E.g. "InterestRateModel Deploy Standard MyInterestRateModel"
+          * E.g. "InterestRateModel Deploy Standard MyInterestRateModel",
+          * E.g. "InterestRateModel Deploy InvoiceToken MyInterestRateModel",
       `,
       "Deploy",
       [

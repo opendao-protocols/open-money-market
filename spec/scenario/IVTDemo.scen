@@ -1,0 +1,37 @@
+Macro NewIVTDemo erc20 cToken initialExchangeRate=2e9 decimals=8 admin=Admin
+    InterestRateModel Deploy InvoiceToken InvoiceTokenInterestRateModel
+    Erc20 Deploy Standard erc20 "Invoice Token Demo"
+    CToken Deploy CErc20 cToken "Test IVTDemo" (Erc20 erc20 Address) (Comptroller Address) (InterestRateModel InvoiceTokenInterestRateModel Address) initialExchangeRate decimals admin
+
+Test "Borrow some DAI without IVTDemo collateral"
+    NewComptroller price:1.0
+    NewCToken DAI cDAI
+    NewIVTDemo IVTDemo cIVTDemo
+    Give cDAI 10e18 DAI -- Faucet some bat to borrow
+    Support cIVTDemo collateralFactor:0.5
+    Support cDAI collateralFactor:0.5
+    Prep Geoff Some IVTDemo cIVTDemo
+    -- But not supplying IVTDemo tokens: Mint Geoff 100e18 cIVTDemo
+    EnterMarkets Geoff cIVTDemo
+    Invariant Static (Erc20 DAI TokenBalance cDAI)
+    AllowFailures
+    Borrow Geoff 1e18 cDAI
+    Assert Failure COMPTROLLER_REJECTION BORROW_COMPTROLLER_REJECTION INSUFFICIENT_LIQUIDITY
+
+Test "Borrow some DAI with IVTDemo collateral"
+    NewComptroller price:1.0
+    NewCToken DAI cDAI
+    NewIVTDemo IVTDemo cIVTDemo
+    Give cDAI 10e18 DAI -- Faucet some bat to borrow
+    Support cIVTDemo collateralFactor:0.5
+    Support cDAI collateralFactor:0.5
+    Prep Geoff Some IVTDemo cIVTDemo
+    Mint Geoff 100e18 cIVTDemo
+    EnterMarkets Geoff cIVTDemo
+    Borrow Geoff 1e18 cDAI
+    Assert Equal (cToken cDAI BorrowBalance Geoff) (Exactly 1e18)
+    Assert Equal (Erc20 DAI TokenBalance Geoff) (Exactly 1e18)
+    Assert Equal (Erc20 DAI TokenBalance cDAI) (Exactly 9e18)
+    Assert Equal (Comptroller MembershipLength Geoff) (Exactly 2)
+    Assert True (Comptroller CheckMembership Geoff cIVTDemo)
+    Assert True (Comptroller CheckMembership Geoff cDAI)

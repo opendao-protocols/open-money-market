@@ -1,26 +1,30 @@
 #!/usr/bin/env yarn run test -s
--- Deploys new Comptroller with some ERC20 and some cTokens
 
--- First deploy a price oracle
-Gate (PriceOracle Address) (PriceOracle Deploy Simple)
-
--- Next a comptroller
-Gate (ComptrollerImpl YesNo Address) (Comptroller Deploy YesNo)
+NewComptroller
 
 -- Next an interest rate model
-Gate (InterestRateModel InvoiceTokenInterestRateModel Address) (InterestRateModel Deploy InvoiceToken InvoiceTokenInterestRateModel)
-Gate (InterestRateModel CreditInterestRateModel Address) (InterestRateModel Deploy Fixed CreditInterestRateModel 0.0004)
+InterestRateModel Deploy InvoiceToken InvoiceTokenInterestRateModel
+InterestRateModel Deploy Fixed CreditInterestRateModel 0.000005
 
 -- Now deploy some ERC-20 faucet tokens
-Gate (Erc20 IVTDemo Address) (Erc20 Deploy Standard IVTDemo "Invoice Token Demo")
-Gate (Erc20 DAI Address) (Erc20 Deploy Standard DAI "Dai")
+Erc20 Deploy Standard IVTDemo "Invoice Token Demo"
+Erc20 Deploy Standard DAI "Dai"
 
 -- Now deploy our cTokens
-Gate (CToken cIVTDemo Address) (CToken Deploy CErc20 cIVTDemo "Test IVTDemo 📈" (Erc20 IVTDemo Address) (ComptrollerImpl YesNo Address) (InterestRateModel InvoiceTokenInterestRateModel Address) 0.2e9 8 (Address Admin))
-Gate (CToken cDAI Address) (CToken Deploy CErc20 cDAI "Test Dai 📈" (Erc20 DAI Address) (ComptrollerImpl YesNo Address) (InterestRateModel CreditInterestRateModel Address) 0.2e9 8 (Address Admin))
-Gate (CToken cETH Address) (CToken Deploy CEther cETH "Test Ether 📈" (ComptrollerImpl YesNo Address) (InterestRateModel CreditInterestRateModel Address) 0.2e9 8 (Address Admin))
+CToken Deploy CErc20 cIVTDemo "Test IVTDemo 📈" (Erc20 IVTDemo Address) (Comptroller Address) (InterestRateModel InvoiceTokenInterestRateModel Address) 0.2e9 8 (Address Admin)
+CToken Deploy CErc20 cDAI "Test Dai 📈" (Erc20 DAI Address) (Comptroller Address) (InterestRateModel CreditInterestRateModel Address) 0.2e9 8 (Address Admin)
+CToken Deploy CEther cETH "Test Ether 📈" (Comptroller Address) (InterestRateModel CreditInterestRateModel Address) 0.2e9 8 (Address Admin)
 
 -- Deploy Maximillion
-Gate (Maximillion Address) (Maximillion Deploy cETH)
+Maximillion Deploy cETH
 
 Print "Deployed Comptroller and cTokens: cIVTDemo, cETH and cDAI"
+
+-- List cTokens
+Support cDAI collateralFactor:0.5
+Support cIVTDemo collateralFactor:0.5
+
+-- Mint some cDAI for Admin
+Prep Admin 1e18 DAI cDAI
+Mint Admin 1e18 cDAI
+-- Print "cDAI minted"

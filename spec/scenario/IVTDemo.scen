@@ -7,7 +7,7 @@ Test "Borrow some DAI without IVTDemo collateral"
     NewComptroller price:1.0
     NewCToken DAI cDAI
     NewIVTDemo IVTDemo cIVTDemo
-    Give cDAI 10e18 DAI -- Faucet some bat to borrow
+    Give cDAI 10e18 DAI -- Faucet some DAI to borrow
     Support cIVTDemo collateralFactor:0.5
     Support cDAI collateralFactor:0.5
     Prep Geoff Some IVTDemo cIVTDemo
@@ -22,7 +22,7 @@ Test "Borrow some DAI with IVTDemo collateral"
     NewComptroller price:1.0
     NewCToken DAI cDAI
     NewIVTDemo IVTDemo cIVTDemo
-    Give cDAI 10e18 DAI -- Faucet some bat to borrow
+    Give cDAI 10e18 DAI -- Faucet some DAI to borrow
     Support cIVTDemo collateralFactor:0.5
     Support cDAI collateralFactor:0.5
     Prep Geoff Some IVTDemo cIVTDemo

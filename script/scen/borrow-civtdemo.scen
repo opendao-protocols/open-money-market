@@ -1,0 +1,5 @@
+Prep Geoff Some IVTDemo cIVTDemo
+Mint Geoff 100e18 cIVTDemo
+EnterMarkets Geoff cIVTDemo
+Borrow Geoff 1e18 cDAI
+-- Print "cIVTDemo minted"

@@ -1,0 +1,4 @@
+-- Mint some cDAI for Admin
+Prep Admin 100e18 DAI cDAI
+Mint Admin 100e18 cDAI
+-- Print "cDAI minted"

@@ -23,8 +23,3 @@ Print "Deployed Comptroller and cTokens: cIVTDemo, cETH and cDAI"
 -- List cTokens
 Support cDAI collateralFactor:0.5
 Support cIVTDemo collateralFactor:0.5
-
--- Mint some cDAI for Admin
-Prep Admin 1e18 DAI cDAI
-Mint Admin 1e18 cDAI
--- Print "cDAI minted"

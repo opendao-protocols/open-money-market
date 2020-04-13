@@ -70,7 +70,7 @@ if [ ! $network = "mainnet" ]; then
 	[[ -z $no_compile ]] && solc --combined-json bin,abi --optimize contracts/*.sol contracts/**/*.sol --allow-paths ./contracts,./contracts/test > networks/${network}-contracts.json
 else
 	# Compile without test contracts
-	[[ -z $no_compile ]] && solc --combined-json bin,abi --optimize contracts/*.sol > networks/${network}-contracts.json
+	[[ -z $no_compile ]] && solc --combined-json bin,abi --optimize contracts/*.sol contracts/**/*.sol --allow-paths ./contracts,./contracts/test > networks/${network}-contracts.json
 fi
 
 [[ ! -d ./.tsbuilt || -z $no_tsc ]] && . "$dir/tsc"

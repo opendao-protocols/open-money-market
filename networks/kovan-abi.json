@@ -1352,6 +1352,211 @@
             "signature": "0xbde3672d"
         }
     ],
+    "WhitePaperInterestRateModel_0_3": [
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "baseRatePerYear",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "multiplierPerYear",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "constructor",
+            "signature": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "baseRatePerBlock",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "multiplierPerBlock",
+                    "type": "uint256"
+                }
+            ],
+            "name": "NewInterestParams",
+            "type": "event",
+            "signature": "0xf35fa19c15e9ba782633a5df62a98b20217151addc68e3ff2cd623a48d37ec27"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "baseRatePerBlock",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0xf14039de"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "blocksPerYear",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0xa385fb96"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "cash",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "borrows",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "reserves",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getBorrowRate",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0x15f24053"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "cash",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "borrows",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "reserves",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "reserveFactorMantissa",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getSupplyRate",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0xb8168816"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "isInterestRateModel",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0x2191f92a"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "multiplierPerBlock",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0x8726bb89"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "cash",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "borrows",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "reserves",
+                    "type": "uint256"
+                }
+            ],
+            "name": "utilizationRate",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "pure",
+            "type": "function",
+            "signature": "0x6e71e2d8"
+        }
+    ],
     "kDAI": [
         {
             "inputs": [
@@ -2848,6 +3053,416 @@
             "stateMutability": "view",
             "type": "function",
             "signature": "0x6f307dc3"
+        }
+    ],
+    "WhitePaperInterestRateModel_0_5": [
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "baseRatePerYear",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "multiplierPerYear",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "constructor",
+            "signature": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "baseRatePerBlock",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "multiplierPerBlock",
+                    "type": "uint256"
+                }
+            ],
+            "name": "NewInterestParams",
+            "type": "event",
+            "signature": "0xf35fa19c15e9ba782633a5df62a98b20217151addc68e3ff2cd623a48d37ec27"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "baseRatePerBlock",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0xf14039de"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "blocksPerYear",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0xa385fb96"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "cash",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "borrows",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "reserves",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getBorrowRate",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0x15f24053"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "cash",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "borrows",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "reserves",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "reserveFactorMantissa",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getSupplyRate",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0xb8168816"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "isInterestRateModel",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0x2191f92a"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "multiplierPerBlock",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0x8726bb89"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "cash",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "borrows",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "reserves",
+                    "type": "uint256"
+                }
+            ],
+            "name": "utilizationRate",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "pure",
+            "type": "function",
+            "signature": "0x6e71e2d8"
+        }
+    ],
+    "WhitePaperInterestRateModel_0_7": [
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "baseRatePerYear",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "multiplierPerYear",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "constructor",
+            "signature": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "baseRatePerBlock",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "multiplierPerBlock",
+                    "type": "uint256"
+                }
+            ],
+            "name": "NewInterestParams",
+            "type": "event",
+            "signature": "0xf35fa19c15e9ba782633a5df62a98b20217151addc68e3ff2cd623a48d37ec27"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "baseRatePerBlock",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0xf14039de"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "blocksPerYear",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0xa385fb96"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "cash",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "borrows",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "reserves",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getBorrowRate",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0x15f24053"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "cash",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "borrows",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "reserves",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "reserveFactorMantissa",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getSupplyRate",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0xb8168816"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "isInterestRateModel",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0x2191f92a"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "multiplierPerBlock",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0x8726bb89"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "cash",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "borrows",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "reserves",
+                    "type": "uint256"
+                }
+            ],
+            "name": "utilizationRate",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "pure",
+            "type": "function",
+            "signature": "0x6e71e2d8"
         }
     ],
     "CreditInterestRateModel": [
@@ -8771,6 +9386,211 @@
             "signature": "0xdcfbc0c7"
         }
     ],
+    "WhitePaperInterestRateModel_7_15": [
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "baseRatePerYear",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "multiplierPerYear",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "constructor",
+            "signature": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "baseRatePerBlock",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "multiplierPerBlock",
+                    "type": "uint256"
+                }
+            ],
+            "name": "NewInterestParams",
+            "type": "event",
+            "signature": "0xf35fa19c15e9ba782633a5df62a98b20217151addc68e3ff2cd623a48d37ec27"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "baseRatePerBlock",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0xf14039de"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "blocksPerYear",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0xa385fb96"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "cash",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "borrows",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "reserves",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getBorrowRate",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0x15f24053"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "cash",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "borrows",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "reserves",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "reserveFactorMantissa",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getSupplyRate",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0xb8168816"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "isInterestRateModel",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0x2191f92a"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "multiplierPerBlock",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0x8726bb89"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "cash",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "borrows",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "reserves",
+                    "type": "uint256"
+                }
+            ],
+            "name": "utilizationRate",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "pure",
+            "type": "function",
+            "signature": "0x6e71e2d8"
+        }
+    ],
     "Comptroller": [
         {
             "inputs": [],
@@ -11943,6 +12763,211 @@
             "signature": "0xbde3672d"
         }
     ],
+    "WhitePaperInterestRateModel_0_10": [
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "baseRatePerYear",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "multiplierPerYear",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "constructor",
+            "signature": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "baseRatePerBlock",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "multiplierPerBlock",
+                    "type": "uint256"
+                }
+            ],
+            "name": "NewInterestParams",
+            "type": "event",
+            "signature": "0xf35fa19c15e9ba782633a5df62a98b20217151addc68e3ff2cd623a48d37ec27"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "baseRatePerBlock",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0xf14039de"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "blocksPerYear",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0xa385fb96"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "cash",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "borrows",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "reserves",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getBorrowRate",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0x15f24053"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "cash",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "borrows",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "reserves",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "reserveFactorMantissa",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getSupplyRate",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0xb8168816"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "isInterestRateModel",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0x2191f92a"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "multiplierPerBlock",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0x8726bb89"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "cash",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "borrows",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "reserves",
+                    "type": "uint256"
+                }
+            ],
+            "name": "utilizationRate",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "pure",
+            "type": "function",
+            "signature": "0x6e71e2d8"
+        }
+    ],
     "InvoiceTokenInterestRateModel": [
         {
             "constant": true,
@@ -12028,6 +13053,211 @@
             "stateMutability": "pure",
             "type": "function",
             "signature": "0x2191f92a"
+        }
+    ],
+    "WhitePaperInterestRateModel_0_12": [
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "baseRatePerYear",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "multiplierPerYear",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "constructor",
+            "signature": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "baseRatePerBlock",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "multiplierPerBlock",
+                    "type": "uint256"
+                }
+            ],
+            "name": "NewInterestParams",
+            "type": "event",
+            "signature": "0xf35fa19c15e9ba782633a5df62a98b20217151addc68e3ff2cd623a48d37ec27"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "baseRatePerBlock",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0xf14039de"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "blocksPerYear",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0xa385fb96"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "cash",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "borrows",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "reserves",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getBorrowRate",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0x15f24053"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "cash",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "borrows",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "reserves",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "reserveFactorMantissa",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getSupplyRate",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0xb8168816"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "isInterestRateModel",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0x2191f92a"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "multiplierPerBlock",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function",
+            "signature": "0x8726bb89"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "cash",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "borrows",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "reserves",
+                    "type": "uint256"
+                }
+            ],
+            "name": "utilizationRate",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "pure",
+            "type": "function",
+            "signature": "0x6e71e2d8"
         }
     ],
     "ScenComptroller": [

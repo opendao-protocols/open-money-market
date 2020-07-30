@@ -237,7 +237,7 @@ Test "When price oracle for collateral token is whack"
     Assert Equal (Comptroller Liquidity Geoff) -1e18
     -- Okay, so we should be able to liquidate, so let's do that.
     Prep Torrey 10e18 BAT cBAT
-    PriceOracle SetPrice cBAT Max
+    PriceOracle SetPrice cBAT UInt256Max
     AllowFailures
     Liquidate Torrey "->" Geoff 2e18 cBAT "Seizing" cBAT
     Assert Failure COMPTROLLER_REJECTION LIQUIDATE_COMPTROLLER_REJECTION MATH_ERROR
@@ -269,7 +269,7 @@ Test "When repay borrow fails"
     Prep Torrey 10e18 BAT cBAT allowanceAmount:0.1e18
     AllowFailures
     Liquidate Torrey "->" Geoff 2e18 cBAT "Seizing" cBAT
-    Assert Failure TOKEN_INSUFFICIENT_ALLOWANCE REPAY_BORROW_TRANSFER_IN_NOT_POSSIBLE
+    Assert Revert "revert Insufficient allowance"
 
 Test "Proper liquidation of paused WBTC as collateral"
     InKindBorrow borrowAmount:1e18 borrowRate:0.000005 borrowTokenType:WBTC

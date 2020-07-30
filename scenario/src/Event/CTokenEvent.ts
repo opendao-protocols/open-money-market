@@ -21,6 +21,7 @@ import {
   NumberV,
   StringV
 } from '../Value';
+import { getContract } from '../Contract';
 import { Arg, Command, View, processCommandEvent } from '../Command';
 import { CTokenErrorReporter } from '../ErrorReporter';
 import { getComptroller, getCTokenData } from '../ContractLookup';
@@ -29,7 +30,7 @@ import { buildCToken } from '../Builder/CTokenBuilder';
 import { verify } from '../Verify';
 import { getLiquidity } from '../Value/ComptrollerValue';
 import { encodedNumber } from '../Encoding';
-import { getCTokenV } from '../Value/CTokenValue';
+import { getCTokenV, getCErc20DelegatorV } from '../Value/CTokenValue';
 
 function showTrxValue(world: World): string {
   return new NumberV(world.trxInvokationOpts.get('value')).show();
@@ -288,17 +289,19 @@ async function setComptroller(world: World, from: string, cToken: CToken, comptr
   return world;
 }
 
-async function becomImplementation(
+async function becomeImplementation(
   world: World,
   from: string,
   cToken: CToken,
   becomeImplementationData: string
 ): Promise<World> {
+
+  const cErc20Delegate = getContract('CErc20Delegate');
+  const cErc20DelegateContract = await cErc20Delegate.at<CErc20Delegate>(world, cToken._address);
+
   let invokation = await invoke(
     world,
-    (cToken as CErc20Delegate).methods._becomeImplementation(
-      becomeImplementationData
-    ),
+    cErc20DelegateContract.methods._becomeImplementation(becomeImplementationData),
     from,
     CTokenErrorReporter
   );
@@ -315,17 +318,45 @@ async function becomImplementation(
   return world;
 }
 
-async function setImplementation(
+async function resignImplementation(
   world: World,
   from: string,
   cToken: CToken,
+): Promise<World> {
+
+  const cErc20Delegate = getContract('CErc20Delegate');
+  const cErc20DelegateContract = await cErc20Delegate.at<CErc20Delegate>(world, cToken._address);
+
+  let invokation = await invoke(
+    world,
+    cErc20DelegateContract.methods._resignImplementation(),
+    from,
+    CTokenErrorReporter
+  );
+
+  world = addAction(
+    world,
+    `CToken ${cToken.name}: ${describeUser(
+      world,
+      from
+    )} initiates _resignImplementation.`,
+    invokation
+  );
+
+  return world;
+}
+
+async function setImplementation(
+  world: World,
+  from: string,
+  cToken: CErc20Delegator,
   implementation: string,
   allowResign: boolean,
   becomeImplementationData: string
 ): Promise<World> {
   let invokation = await invoke(
     world,
-    (cToken as CErc20Delegator).methods._setImplementation(
+    cToken.methods._setImplementation(
       implementation,
       allowResign,
       becomeImplementationData
@@ -735,7 +766,7 @@ export function cTokenCommands() {
         new Arg('becomeImplementationData', getStringV)
       ],
       (world, from, { cToken, becomeImplementationData }) =>
-        becomImplementation(
+        becomeImplementation(
           world,
           from,
           cToken,
@@ -743,8 +774,25 @@ export function cTokenCommands() {
         ),
       { namePos: 1 }
     ),
+    new Command<{cToken: CToken;}>(
+      `
+        #### ResignImplementation
+
+        * "CToken <cToken> ResignImplementation"
+          * E.g. "CToken cDAI ResignImplementation"
+      `,
+      'ResignImplementation',
+      [new Arg('cToken', getCTokenV)],
+      (world, from, { cToken }) =>
+        resignImplementation(
+          world,
+          from,
+          cToken
+        ),
+      { namePos: 1 }
+    ),
     new Command<{
-      cToken: CToken;
+      cToken: CErc20Delegator;
       implementation: AddressV;
       allowResign: BoolV;
       becomeImplementationData: StringV;
@@ -752,12 +800,12 @@ export function cTokenCommands() {
       `
         #### SetImplementation
 
-        * "CToken <cToken> SetImplementation implementation:<Address> allowResign:<Bool> becomImplementationData:<String>"
+        * "CToken <cToken> SetImplementation implementation:<Address> allowResign:<Bool> becomeImplementationData:<String>"
           * E.g. "CToken cDAI SetImplementation (CToken cDAIDelegate Address) True "0x01234anyByTeS56789"
       `,
       'SetImplementation',
       [
-        new Arg('cToken', getCTokenV),
+        new Arg('cToken', getCErc20DelegatorV),
         new Arg('implementation', getAddressV),
         new Arg('allowResign', getBoolV),
         new Arg('becomeImplementationData', getStringV)

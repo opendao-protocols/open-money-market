@@ -1,8 +1,9 @@
 import { fromJS, Map } from 'immutable';
 import { World } from './World';
 import { Invokation } from './Invokation';
-import { ABI, ABIEvent, Contract, setContractName } from './Contract';
+import { Contract, setContractName } from './Contract';
 import { getNetworkPath, readFile, writeFile } from './File';
+import { AbiItem } from 'web3-utils';
 
 type Networks = Map<string, any>;
 
@@ -21,14 +22,16 @@ function serializeNetworkFile(networks: Networks): string {
 
 function readNetworkFile(world: World, isABI: boolean): Promise<Networks> {
   return readFile(
+    world,
     getNetworkPath(world.basePath, world.network, isABI ? '-abi' : ''),
     Map({}),
     parseNetworkFile
   );
 }
 
-function writeNetworkFile(world: World, networks: Networks, isABI: boolean): Promise<void> {
+function writeNetworkFile(world: World, networks: Networks, isABI: boolean): Promise<World> {
   return writeFile(
+    world,
     getNetworkPath(world.basePath, world.network, isABI ? '-abi' : ''),
     serializeNetworkFile(networks)
   );
@@ -39,21 +42,7 @@ export function storeContract(world: World, contract: Contract, name: string, ex
 
   world = world.set('lastContract', contract);
   world = world.setIn(['contractIndex', contract._address.toLowerCase()], contract);
-
-  const updatedEventDecoder = contract._jsonInterface
-    .filter(i => i.type == 'event')
-    .reduce((accum, event) => {
-      const { anonymous, inputs, signature } = (event as any) as ABIEvent;
-      return {
-        ...accum,
-        [signature]: log => {
-          let argTopics = anonymous ? log.topics : log.topics.slice(1);
-          return world.web3.eth.abi.decodeLog(inputs, log.data, argTopics);
-        }
-      };
-    }, world.eventDecoder);
-
-  world = world.set('eventDecoder', updatedEventDecoder);
+  world = updateEventDecoder(world, contract);
 
   world = world.update('contractData', contractData => {
     return extraData.reduce((acc, { index, data }) => {
@@ -74,7 +63,7 @@ export async function saveContract<T>(
   contract: Contract,
   name: string,
   extraData: ExtraData[]
-): Promise<void> {
+): Promise<World> {
   let networks = await readNetworkFile(world, false);
   let networksABI = await readNetworkFile(world, true);
 
@@ -83,9 +72,11 @@ export async function saveContract<T>(
 
   // Don't write during a dry-run
   if (!world.dryRun) {
-    await writeNetworkFile(world, networks, false);
-    await writeNetworkFile(world, networksABI, true);
+    world = await writeNetworkFile(world, networks, false);
+    world = await writeNetworkFile(world, networksABI, true);
   }
+
+  return world;
 }
 
 // Merges a contract into another, which is important for delegation
@@ -109,7 +100,11 @@ export async function mergeContractABI(
     throw new Error(`Missing contract ABI for ${b}`);
   }
 
-  const fullABI = aABI.toJS().concat(bABI.toJS());
+  const itemBySig: { [key: string]: AbiItem } = {};
+  for (let item of aABI.toJS().concat(bABI.toJS())) {
+    itemBySig[item.signature] = item;
+  }
+  const fullABI = Object.values(itemBySig);
 
   // Store Comptroller address
   networks = networks.setIn(['Contracts', targetName], contractTarget._address);
@@ -119,15 +114,16 @@ export async function mergeContractABI(
 
   let mergedContract = new world.web3.eth.Contract(fullABI, contractTarget._address, {});
 
+  /// XXXS
   world = world.setIn(
     ['contractIndex', contractTarget._address.toLowerCase()],
-    setContractName(targetName, mergedContract)
+    setContractName(targetName, <Contract><unknown>mergedContract)
   );
 
   // Don't write during a dry-run
   if (!world.dryRun) {
-    await writeNetworkFile(world, networks, false);
-    await writeNetworkFile(world, networksABI, true);
+    world = await writeNetworkFile(world, networks, false);
+    world = await writeNetworkFile(world, networksABI, true);
   }
 
   return world;
@@ -140,6 +136,23 @@ export async function loadContracts(world: World): Promise<[World, string[]]> {
   return loadContractData(world, networks, networksABI);
 }
 
+function updateEventDecoder(world: World, contract: any) {
+  const updatedEventDecoder = contract._jsonInterface
+    .filter(i => i.type == 'event')
+    .reduce((accum, event) => {
+      const { anonymous, inputs, signature } = event;
+      return {
+        ...accum,
+        [signature]: log => {
+          let argTopics = anonymous ? log.topics : log.topics.slice(1);
+          return world.web3.eth.abi.decodeLog(inputs, log.data, argTopics);
+        }
+      };
+    }, world.eventDecoder);
+
+  return world.set('eventDecoder', updatedEventDecoder)
+}
+
 export async function loadContractData(
   world: World,
   networks: Networks,
@@ -150,13 +163,16 @@ export async function loadContractData(
   let contracts = networks.get('Contracts') || Map({});
 
   world = contracts.reduce((world: World, address: string, name: string) => {
-    let abi: ABI[] = networksABI.has(name) ? networksABI.get(name).toJS() : [];
+    let abi: AbiItem[] = networksABI.has(name) ? networksABI.get(name).toJS() : [];
     let contract = new world.web3.eth.Contract(abi, address, {});
+
+    world = updateEventDecoder(world, contract);
 
     contractInfo.push(`${name}: ${address}`);
 
     // Store the contract
-    return world.setIn(['contractIndex', contract._address.toLowerCase()], setContractName(name, contract));
+    // XXXS
+    return world.setIn(['contractIndex', (<any>contract)._address.toLowerCase()], setContractName(name, <Contract><unknown>contract));
   }, world);
 
   world = world.update('contractData', contractData => contractData.mergeDeep(networks));
@@ -180,7 +196,7 @@ export async function storeAndSaveContract<T>(
   }
 
   world = storeContract(world, contract, name, extraData);
-  await saveContract(world, contract, name, extraData);
+  world = await saveContract(world, contract, name, extraData);
 
   return world;
 }

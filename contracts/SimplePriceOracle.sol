@@ -1,16 +1,18 @@
-pragma solidity ^0.5.12;
+pragma solidity ^0.5.16;
 
 import "./PriceOracle.sol";
 import "./CErc20.sol";
 
 contract SimplePriceOracle is PriceOracle {
     mapping(address => uint) prices;
-    bool public constant isPriceOracle = true;
     event PricePosted(address asset, uint previousPriceMantissa, uint requestedPriceMantissa, uint newPriceMantissa);
 
-
     function getUnderlyingPrice(CToken cToken) public view returns (uint) {
-        return prices[address(CErc20(address(cToken)).underlying())];
+        if (compareStrings(cToken.symbol(), "cETH")) {
+            return 1e18;
+        } else {
+            return prices[address(CErc20(address(cToken)).underlying())];
+        }
     }
 
     function setUnderlyingPrice(CToken cToken, uint underlyingPriceMantissa) public {
@@ -27,5 +29,9 @@ contract SimplePriceOracle is PriceOracle {
     // v1 price oracle interface for use as backing of proxy
     function assetPrices(address asset) external view returns (uint) {
         return prices[asset];
+    }
+
+    function compareStrings(string memory a, string memory b) internal pure returns (bool) {
+        return (keccak256(abi.encodePacked((a))) == keccak256(abi.encodePacked((b))));
     }
 }

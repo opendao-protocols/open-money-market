@@ -1,5 +1,6 @@
 import { Event } from './Event';
 import { World } from './World';
+import { AbiItem } from 'web3-utils';
 
 // Wraps the element in an array, if it was not already an array
 // If array is null or undefined, return the empty array
@@ -37,24 +38,37 @@ export function mustString(arg: Event): string {
   throw new Error(`Expected string argument, got ${arg.toString()}`);
 }
 
+export function rawValues(args) {
+  if (Array.isArray(args))
+    return args.map(rawValues);
+  if (Array.isArray(args.val))
+    return args.val.map(rawValues);
+  return args.val;
+}
+
 // Web3 doesn't have a function ABI parser.. not sure why.. but we build a simple encoder
 // that accepts "fun(uint256,uint256)" and params and returns the encoded value.
 export function encodeABI(world: World, fnABI: string, fnParams: string[]): string {
-  const regex = /(\w+)\(([\w,]+)\)/;
-  const res = regex.exec(fnABI);
-  if (!res) {
-    throw new Error(`Expected ABI signature, got: ${fnABI}`);
+  if (fnParams.length == 0) {
+    return world.web3.eth.abi.encodeFunctionSignature(fnABI);
+  } else {
+    const regex = /(\w+)\(([\w,\[\]]+)\)/;
+    const res = regex.exec(fnABI);
+    if (!res) {
+      throw new Error(`Expected ABI signature, got: ${fnABI}`);
+    }
+    const [_, fnName, fnInputs] = <[string, string, string]>(<unknown>res);
+    const jsonInterface = {
+      name: fnName,
+      inputs: fnInputs.split(',').map(i => ({ name: '', type: i }))
+    };
+    // XXXS
+    return world.web3.eth.abi.encodeFunctionCall(<AbiItem>jsonInterface, fnParams);
   }
-  const [_, fnName, fnInputs] = <[string, string, string]>(<unknown>res);
-  const jsonInterface = {
-    name: fnName,
-    inputs: fnInputs.split(',').map(i => ({ name: '', type: i }))
-  };
-  return world.web3.eth.abi.encodeFunctionCall(jsonInterface, fnParams);
 }
 
 export function encodeParameters(world: World, fnABI: string, fnParams: string[]): string {
-  const regex = /(\w+)\(([\w,]+)\)/;
+  const regex = /(\w+)\(([\w,\[\]]+)\)/;
   const res = regex.exec(fnABI);
   if (!res) {
     return '0x0';
@@ -64,7 +78,7 @@ export function encodeParameters(world: World, fnABI: string, fnParams: string[]
 }
 
 export function decodeParameters(world: World, fnABI: string, data: string): string[] {
-  const regex = /(\w+)\(([\w,]+)\)/;
+  const regex = /(\w+)\(([\w,\[\]]+)\)/;
   const res = regex.exec(fnABI);
   if (!res) {
     return [];
@@ -76,6 +90,16 @@ export function decodeParameters(world: World, fnABI: string, data: string): str
   return inputTypes.map((_, index) => parameters[index]);
 }
 
+export async function getCurrentBlockNumber(world: World): Promise<number> {
+  const { result: currentBlockNumber }: any = await sendRPC(world, 'eth_blockNumber', []);
+  return parseInt(currentBlockNumber);
+}
+
+export function getCurrentTimestamp(): number {
+  return Math.floor(Date.now() / 1000);
+}
+
+
 export function sleep(timeout: number): Promise<void> {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -86,6 +110,10 @@ export function sleep(timeout: number): Promise<void> {
 
 export function sendRPC(world: World, method: string, params: any[]) {
   return new Promise((resolve, reject) => {
+    if (!world.web3.currentProvider || typeof (world.web3.currentProvider) === 'string') {
+      return reject(`cannot send from currentProvider=${world.web3.currentProvider}`);
+    }
+
     world.web3.currentProvider.send(
       {
         jsonrpc: '2.0',

@@ -11,19 +11,29 @@ Macro PricedComptroller closeFactor=0.1 maxAssets=20
     PriceOracle Deploy Simple
     ComptrollerImpl Deploy ScenarioG1 ScenComptrollerG1
     Unitroller SetPendingImpl ScenComptrollerG1
-    PriceOracleProxy Deploy (Unitroller Address) (PriceOracle Address) (Address Zero) (Address Zero) (Address Zero) (Address Zero) -- if listing cEther use ListedEtherToken to replace proxy
+    PriceOracleProxy Deploy Admin (PriceOracle Address) (Address Zero) (Address Zero) (Address Zero) (Address Zero) (Address Zero) -- if listing cEther use ListedEtherToken to replace proxy
     ComptrollerImpl ScenComptrollerG1 BecomeG1 (PriceOracleProxy Address) closeFactor maxAssets
     ComptrollerImpl Deploy Scenario ScenComptroller
     Unitroller SetPendingImpl ScenComptroller
     ComptrollerImpl ScenComptroller Become
 
 Macro NewComptroller price=1.0 closeFactor=0.1 maxAssets=20
+    --g1
     Unitroller Deploy
     PriceOracle Deploy Fixed price
     ComptrollerImpl Deploy ScenarioG1 ScenComptrollerG1
     Unitroller SetPendingImpl ScenComptrollerG1
-    PriceOracleProxy Deploy (Unitroller Address) (PriceOracle Address) (Address Zero) (Address Zero) (Address Zero) (Address Zero) -- if listing cEther use ListedEtherToken to replace proxy
+    PriceOracleProxy Deploy Admin (PriceOracle Address) (Address Zero) (Address Zero) (Address Zero) (Address Zero) (Address Zero) -- if listing cEther use ListedEtherToken to replace proxy
     ComptrollerImpl ScenComptrollerG1 BecomeG1 (PriceOracleProxy Address) closeFactor maxAssets
+    --g2
+    ComptrollerImpl Deploy StandardG2 ComptrollerG2
+    Unitroller SetPendingImpl ComptrollerG2
+    ComptrollerImpl ComptrollerG2 BecomeG2
+    --g3
+    ComptrollerImpl Deploy StandardG3 ComptrollerG3
+    Unitroller SetPendingImpl ComptrollerG3
+    ComptrollerImpl ComptrollerG3 BecomeG3 1e18 []
+    --g4
     ComptrollerImpl Deploy Scenario ScenComptroller
     Unitroller SetPendingImpl ScenComptroller
     ComptrollerImpl ScenComptroller Become
@@ -60,7 +70,7 @@ Macro ListedCTokenImmutable erc20 cToken borrowRate=0.000005 initialExchangeRate
 Macro ListedEtherToken cToken borrowRate=0.000005 initialExchangeRate=2e9 decimals=8 admin=Admin
     NewEtherToken cToken borrowRate initialExchangeRate decimals admin
     Comptroller SupportMarket cToken
-    PriceOracleProxy Deploy (Unitroller Address) (PriceOracle Address) (Address cETH) (Address Zero) (Address Zero) (Address Zero)
+    PriceOracleProxy Deploy Admin (PriceOracle Address) (Address cETH) (Address Zero) (Address Zero) (Address Zero) (Address Zero)
     Comptroller SetPriceOracle (PriceOracleProxy Address)
 
 Macro ListedEtherTokenMinted cToken borrowRate=0.000005 initialExchangeRate=2e9 decimals=8 admin=Admin
@@ -83,7 +93,7 @@ Macro Prep user amount erc20 token allowanceAmount=Nothing
     From user (Erc20 erc20 Approve token (Default allowanceAmount amount))
 
 Macro Allow user token
-    From user (Erc20 (CToken token Underlying) Approve token Max)
+    From user (Erc20 (CToken token Underlying) Approve token UInt256Max)
 
 Macro AccrueInterest token
     CToken token AccrueInterest

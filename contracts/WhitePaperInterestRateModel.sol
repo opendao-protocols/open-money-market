@@ -1,4 +1,4 @@
-pragma solidity ^0.5.12;
+pragma solidity ^0.5.16;
 
 import "./InterestRateModel.sol";
 import "./SafeMath.sol";
@@ -12,11 +12,6 @@ contract WhitePaperInterestRateModel is InterestRateModel {
     using SafeMath for uint;
 
     event NewInterestParams(uint baseRatePerBlock, uint multiplierPerBlock);
-
-    /**
-     * @notice Indicator that this is an InterestRateModel contract (for inspection)
-     */
-    bool public constant isInterestRateModel = true;
 
     /**
      * @notice The approximate number of blocks per year that is assumed by the interest rate model

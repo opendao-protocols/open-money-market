@@ -8,18 +8,18 @@ parent_dir="$(cd $dir/../.. && pwd)"
 cache_file="$scenario_dir/.tscache"
 checksum="$(echo $scenario_dir/src/{*,**/}*.* | xargs shasum -p | shasum -p | cut -d' ' -f 1)"
 
-#if [ ! -d "$scenario_dir/node_modules" ]; then
-#	echo "Getting scenario packages..."
-#	cd "$scenario_dir" && yarn
-#fi
+if [ ! -d "$scenario_dir/node_modules" ]; then
+	echo "Getting scenario packages..."
+	cd "$scenario_dir" && yarn
+fi
 
-#trap cleanup EXIT
+trap cleanup EXIT
 
-#cleanup() {
-#  mv "$parent_dir/node_modules_tmp" "$parent_dir/node_modules"
-#}
+cleanup() {
+  mv "$parent_dir/node_modules_tmp" "$parent_dir/node_modules"
+}
 
-#mv "$parent_dir/node_modules" "$parent_dir/node_modules_tmp"
+mv "$parent_dir/node_modules" "$parent_dir/node_modules_tmp"
 
 if [ -z "$rebuild" -a -f "$cache_file" ]; then
   cached="$(cat $cache_file)"

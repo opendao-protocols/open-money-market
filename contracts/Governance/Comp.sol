@@ -3,7 +3,7 @@ pragma experimental ABIEncoderV2;
 
 contract Comp {
     /// @notice EIP-20 token name for this token
-    string public constant name = "OPEN Token Lending Governance";
+    string public constant name = "OPEN Governance Token";
 
     /// @notice EIP-20 token symbol for this token
     string public constant symbol = "OPEN";

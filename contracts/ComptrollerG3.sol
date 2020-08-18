@@ -1389,6 +1389,6 @@ contract ComptrollerG3 is ComptrollerV3Storage, ComptrollerInterface, Comptrolle
      * @return The address of COMP
      */
     function getCompAddress() public view returns (address) {
-        return 0x48098E5B9aAF412C96e230F14688A8D6f8FfE340;
+        return 0x69e8b9528CABDA89fe846C67675B5D73d463a916;
     }
 }

@@ -21,7 +21,7 @@
         "WhitePaperInterestRateModel_0_10": "0x65A0B668d883BfbEf6BA50f49320B7De9A399d2a",
         "InvoiceTokenInterestRateModel": "0xde89848E0efD96864203Dd9D5994CF1bCdC1cBd0",
         "WhitePaperInterestRateModel_0_12": "0x29d3959Ab0054248e853D6eC47157f6Ff2a79cE2",
-        "MyDefault": "0x357C29732C0510eB334A9DEFAa1bd68148c3a827",
+        "MyDefault": "0x2E467810399C57af8A3A4f3507B72bD8ef882088",
         "ScenComptroller": "0x4d061B0a9bfca6fD99f545aDC19D6f6e2780E33C",
         "cETH": "0xC223998101e5Dba7e6C0e12352290E804B01AeD5",
         "ComptrollerG3": "0x57338E80bc25AA4b26EA5030Cb4e20F93229266B",
@@ -48,7 +48,7 @@
         "WhitePaperInterestRateModel_0_10": 17952214,
         "InvoiceTokenInterestRateModel": 17704721,
         "WhitePaperInterestRateModel_0_12": 17952235,
-        "MyDefault": 20022528,
+        "MyDefault": 20840286,
         "ScenComptroller": 17753680,
         "cETH": 17753692,
         "ComptrollerG3": 20021336,
@@ -92,7 +92,7 @@
             "description": "Scenario Comptroller Impl"
         },
         "MyDefault": {
-            "address": "0x357C29732C0510eB334A9DEFAa1bd68148c3a827",
+            "address": "0x2E467810399C57af8A3A4f3507B72bD8ef882088",
             "contract": "Comptroller",
             "description": "Standard Comptroller Impl"
         },

@@ -11,7 +11,7 @@
         "DAI": "0x66562CB34bC287aF224e6b037eA8A7206BC44100",
         "StdComptroller": "0x62F18C451af964197341d3c86D27e98C41BB8fcC",
         "Poster": "0x3c6809319201b978d821190ba03fa19a3523bd96",
-        "DefaultComptroller": "0x2b26C6DEfDc47C5ce5622cb4037419C0A0b9d95b",
+        "DefaultComptroller": "0x6454c38713F9b588E78728d44FcCAF60E296Cbbd",
         "Unitroller": "0x959Fb43EF08F415da0AeA39BEEf92D96f41E41b3",
         "Comptroller": "0x959Fb43EF08F415da0AeA39BEEf92D96f41E41b3",
         "Comp": "0x69e8b9528CABDA89fe846C67675B5D73d463a916",
@@ -53,7 +53,7 @@
         "cDAI": 8983575,
         "DAI": 9823925,
         "StdComptroller": 7710672,
-        "DefaultComptroller": 10675831,
+        "DefaultComptroller": 10845750,
         "Unitroller": 9823884,
         "Comp": 10644611,
         "WhitePaperInterestRateModel_0_10": 9888127,
@@ -128,7 +128,7 @@
             "description": "Scenario Comptroller Impl"
         },
         "DefaultComptroller": {
-            "address": "0x2b26C6DEfDc47C5ce5622cb4037419C0A0b9d95b",
+            "address": "0x6454c38713F9b588E78728d44FcCAF60E296Cbbd",
             "contract": "Comptroller",
             "description": "Standard Comptroller Impl"
         },

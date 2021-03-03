@@ -7,6 +7,7 @@ Unitroller SetPendingImpl Comptroller
 ComptrollerImpl Comptroller Become
 Comptroller SetMaxAssets 20
 Comptroller SetCloseFactor 0.5
+Comptroller SetPriceOracle (PriceOracle Address)
 InterestRateModel Deploy WhitePaper WhitePaperInterestRateModel_2_30 0.02 0.3
 
-Print "\nDeployment Done, Press 'Ctrl + C' to close this script"
+Print "\nDeployment Done, Press 'Ctrl + c' to close this script"

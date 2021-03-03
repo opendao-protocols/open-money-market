@@ -10,12 +10,6 @@ import "./InterestRateModel.sol";
   */
 contract InvoiceTokenInterestRateModel is InterestRateModel {
 
-    /// TODO - commented during compound merge
-    // function isInterestRateModel()
-    //     external pure returns (bool) {
-    //     return true;
-    // }
-
     function getBorrowRate(uint /*cash*/, uint /*borrows*/, uint /*reserves*/)
         external view returns (uint) {
         return 0;

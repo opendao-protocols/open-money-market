@@ -45,14 +45,13 @@ contract PriceOracleOTL is PriceOracle {
 
     function getUnderlyingPrice(CToken cToken) public view returns (uint) {
 
-        /// TODO - commented during compound merge
-        // address cTokenAddress = address(cToken);
-        // (bool isListed, ) = comptroller.markets(cTokenAddress);
+        address cTokenAddress = address(cToken);
+        (bool isListed, ,) = comptroller.markets(cTokenAddress);
 
-        // if (!isListed) {
-        //     // not white-listed, worthless
-        //     return 0;
-        // }
+        if (!isListed) {
+            // not white-listed, worthless
+            return 0;
+        }
 
         return prices[address(CErc20(address(cToken)).underlying())];
     }

@@ -1,27 +1,12 @@
 #!/usr/bin/env yarn run test -s
 
-NewComptroller
+Unitroller Deploy
+PriceOracle Deploy PriceOracleOTL Unitroller
+ComptrollerImpl Deploy Comptroller
+Unitroller SetPendingImpl Comptroller
+ComptrollerImpl Comptroller Become
+Comptroller SetMaxAssets 20
+Comptroller SetCloseFactor 0.5
+InterestRateModel Deploy WhitePaper WhitePaperInterestRateModel_2_30 0.02 0.3
 
--- Next an interest rate model
--- InterestRateModel Deploy InvoiceToken InvoiceTokenInterestRateModel
-InterestRateModel Deploy Fixed CreditInterestRateModel 0.000005
-InterestRateModel Deploy WhitePaper WhitePaperInterestRateModel 0.05 0.2
--- InterestRateModel Deploy WhitePaper WhitePaperInterestRateModel 42048 210240
-
--- Now deploy some ERC-20 faucet tokens
--- Erc20 Deploy Standard IVTDemo "Invoice Token Demo"
-Erc20 Deploy Standard DAI "Dai"
-
--- Now deploy our cTokens
--- CToken Deploy CErc20 cIVTDemo "Test IVTDemo 📈" (Erc20 IVTDemo Address) (Comptroller Address) (InterestRateModel InvoiceTokenInterestRateModel Address) 0.2e9 8 (Address Admin)
-CToken Deploy CErc20 kDAI "Test Dai 📈" (Erc20 DAI Address) (Comptroller Address) (InterestRateModel WhitePaperInterestRateModel Address) 0.2e9 8 (Address Admin)
-CToken Deploy CEther cETH "Test Ether 📈" (Comptroller Address) (InterestRateModel CreditInterestRateModel Address) 0.2e9 8 (Address Admin)
-
--- Deploy Maximillion
-Maximillion Deploy cETH
-
--- Print "Deployed Comptroller and cTokens: cIVTDemo, cETH and kDAI"
-
--- List cTokens
-Support kDAI collateralFactor:0.5
--- Support cIVTDemo collateralFactor:0.5
+Print "\nDeployment Done, Press 'Ctrl + C' to close this script"

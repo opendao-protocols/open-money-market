@@ -21,6 +21,7 @@ import {getContract, getTestContract} from '../Contract';
 const FixedPriceOracle = getTestContract('FixedPriceOracle');
 const SimplePriceOracle = getContract('SimplePriceOracle');
 const AnchorPriceOracle = getContract('AnchorPriceOracle');
+const PriceOracleOTL = getContract('PriceOracleOTL');
 const NotPriceOracle = getTestContract('NotPriceOracle');
 const PriceOracleInterface = getTestContract('PriceOracle');
 
@@ -95,6 +96,23 @@ export async function buildPriceOracle(world: World, from: string, event: Event)
         return {
           invokation: await NotPriceOracle.deploy<PriceOracle>(world, from, []),
           description: "Not a Price Oracle"
+        };
+      }
+    ),
+    new Fetcher<{unitroller: AddressV}, PriceOracleData>(`
+        #### PriceOracleOTL
+
+        * "PriceOracleOTL" - Price oracle by OpenDAO
+          * E.g. "PriceOracle Deploy PriceOracleOTL"
+      `,
+      "PriceOracleOTL",
+      [
+        new Arg("unitroller", getAddressV)
+      ],
+      async (world, {unitroller}) => {
+        return {
+          invokation: await PriceOracleOTL.deploy<PriceOracle>(world, from, [unitroller.val]),
+          description: "Price oracle by OpenDAO"
         };
       }
     )

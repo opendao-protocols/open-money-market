@@ -208,6 +208,31 @@ module.exports = {
         {file: "~/.ethereum/mainnet"}                        // Load from given file with contents as the private key (e.g. 0x...)
       ]
     },
+    xdai: {
+      providers: [
+        {env: "PROVIDER"},
+        {http: "https://dai.poa.network"}
+      ],
+      web3: {
+        gas: [
+          {env: "GAS"},
+          {default: "8000000"}
+        ],
+        gas_price: [
+          {env: "GAS_PRICE"},
+          {default: "1000000000"}
+        ],
+        options: {
+          transactionConfirmationBlocks: 1,
+          transactionBlockTimeout: 5
+        }
+      },
+      accounts: [
+        {env: "ACCOUNT"},
+        {file: `~/.ethereum/xdai-${process.env['KEY']}`},
+        {file: "~/.ethereum/xdai"}                        // Load from given file with contents as the private key (e.g. 0x...)
+      ]
+    },
   },
   get_network_file: (network) => {
     return null;

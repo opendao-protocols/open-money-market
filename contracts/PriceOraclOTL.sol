@@ -28,10 +28,11 @@ contract PriceOracleOTL is PriceOracle {
 
     event PricePosted(address indexed asset, address indexed postedBy, uint previousPriceMantissa, uint indexed requestedPriceMantissa, uint newPriceMantissa);
     event NewPoster(address indexed oldPoster, address indexed newPoster);
+    event NewAdmin(address indexed oldAdmin, address indexed newAdmin);
 
     constructor(address comptroller_) public {
         comptroller = Comptroller(comptroller_);
-        admin = msg.sender;
+        _setAdminInternal(msg.sender);
         _setPosterInternal(msg.sender);
         _notEntered = true;
     }
@@ -85,11 +86,21 @@ contract PriceOracleOTL is PriceOracle {
         _setPosterInternal(newPoster);
     }
 
+    function _setAdmin(address payable newAdmin) external {
+        require(msg.sender == admin, "Unauthorized");
+        _setAdminInternal(newAdmin);
+        _setPosterInternal(newAdmin);
+    }
+
     function _setPosterInternal(address payable newPoster) internal {
         emit NewPoster(poster, newPoster);
         poster = newPoster;
     }
 
+    function _setAdminInternal(address payable newAdmin) internal {
+        emit NewAdmin(admin, newAdmin);
+        admin = newAdmin;
+    }
 
     /*** Reentrancy Guard ***/
 
